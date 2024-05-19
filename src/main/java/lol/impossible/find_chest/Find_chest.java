@@ -111,7 +111,7 @@ public final class Find_chest extends JavaPlugin implements Listener {
     }
 
     private void distributePotionItems(Player player) {
-        Inventory sourceInventory = findDMGChestInventory("ItemPotion");
+        Inventory sourceInventory = findPotionChestInventory("ItemPotion");
 
         if (sourceInventory == null) {
             player.sendMessage("Скриня з предметами DMG не знайдена.");
@@ -277,6 +277,22 @@ public final class Find_chest extends JavaPlugin implements Listener {
     }
 
     private Inventory findArmourChestInventory(String chestName) {
+        for (World world : Bukkit.getServer().getWorlds()) {
+            for (Chunk chunk : world.getLoadedChunks()) {
+                for (BlockState blockState : chunk.getTileEntities()) {
+                    if (blockState instanceof Chest) {
+                        Chest chest = (Chest) blockState;
+                        if (chestName.equals(chest.getCustomName())) {
+                            return chest.getInventory();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private Inventory findPotionChestInventory(String chestName) {
         for (World world : Bukkit.getServer().getWorlds()) {
             for (Chunk chunk : world.getLoadedChunks()) {
                 for (BlockState blockState : chunk.getTileEntities()) {
