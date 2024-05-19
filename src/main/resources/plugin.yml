@@ -1,0 +1,9 @@
+name: find_chest
+version: '${project.version}'
+main: lol.impossible.find_chest.Find_chest
+api-version: '1.20'
+commands:
+  start_br:
+    description: Copies items from Chest_DMG to Chest_Heal
+    usage: /start_br
+    permission: find_chest.start_br
